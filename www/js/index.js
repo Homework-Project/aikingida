@@ -58,8 +58,7 @@ requirejs.config({
 // Start the main app logic.
 requirejs(['jquery', 'backbone'],
         function($, Backbone) {
-            alert($);
-//            $(document).ready(function() {
-//                alert(1);
-//            });
+            $(document).ready(function() {
+                
+            });
         });
