@@ -58,7 +58,8 @@ requirejs.config({
 // Start the main app logic.
 requirejs(['jquery', 'backbone'],
         function($, Backbone) {
-            //jQuery, canvas and the app/sub module are all
-            //loaded and can be used here now.
-            testFunction(4);
+            alert($);
+//            $(document).ready(function() {
+//                alert(1);
+//            });
         });
