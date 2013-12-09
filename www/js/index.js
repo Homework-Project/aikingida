@@ -59,6 +59,20 @@ requirejs.config({
 requirejs(['jquery', 'backbone'],
         function($, Backbone) {
             $(document).ready(function() {
-                
+                $.ajax(/*"http://soladnet.com/phonegap-api.php"*/"http://localhost/Login/index.php", {
+                    dataType: "json",
+                    type: "POST",
+                    success: function(response, statusText, xhr) {
+//                        $("#content").html(response);
+                        alert(0);
+                    },
+                    error: function(resp, status, error) {
+                        alert(status)
+                        
+                    },
+                    complete: function(resp, status) {
+                        alert(status);
+                    }
+                });
             });
         });
