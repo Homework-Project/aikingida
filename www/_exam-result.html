@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <title>Welcome to HomeWork</title>
+</head>
+<body>
+  <div id="content">
+    <!--  Application Header Open -->
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item  full">
+        <h1 class="topcoat-navigation-bar__title font-large"><span class="icon-menu"></span>HomeWork</h1>
+      </div>
+    </div>
+    <!--  Application Header Closed -->
+
+    <!-- Exam Card Open -->
+    <div class="card card-exam">
+      <div class="head">
+        <h1 class="font-large">Exam Result</h1>
+      </div>
+      <div class="card-body">
+        <div class="topcoat-list">
+          <!-- <h3 class="topcoat-list__header">Category</h3> -->
+          <ul class="topcoat-list__container">
+            <!-- List Item -->
+            <li class="topcoat-list__item">
+              <img src="img/exam-logo-jamb.png" alt="" class="exam-logo">
+              <p class="font-small">
+               <span> JAMB </span><br>
+               <span> 2013 </span><br>
+               <span> English Language </span><br>
+             </p>   
+           </li>
+           <!-- List Item End -->
+         </ul>
+         
+         <p>
+          <!-- The class names .grade-* applies color according to the grade where *= a/b/c/d/e/f -->
+          <span class="float-left font-medium">Score <br> <span class="grade grade-a font-large padding-right-large">79%</span></span>
+          <span class="float-left font-medium">Grade <br> <span class="grade grade-a font-large">a</span></span>
+        </p>
+        
+      </div>
+
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!-- Exam Class Closed -->
+  <div class="card card-exam">
+    <div class="card-body">
+      <div class="topcoat-list">
+        <ul class="topcoat-list__container">
+          <li class="topcoat-list__item">
+            <p class="font-large"><span class="icon-copy"></span>40 Questions</p>
+            <div class="margin-left-large">
+            <p class="font-small grade-a"><span class="icon-checkbox"></span>29 Questions answered correctly</p>
+            <p class="font-small grade-f"><span class="icon-checkbox2"></span>9 Questions answered incorrectly</p>
+            <p class="font-small grade-d"><span class="icon-radiobutton"></span>2 Skipped</p>              
+            </div>
+          </li>
+          <li class="topcoat-list__item">            
+            <p class="font-large"><span class="icon-alarm"></span> 1hr 30Mins</p>
+            <div class="margin-left-large">
+              <p class="font-small grade-a"><span class="icon-alarm"></span>Finished in 1 hr</p>              
+              <p class="font-small grade-f"><span class="icon-alarm"></span>Ran out of time</p>    
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button class="font-medium topcoat-button--cta float-right"><span class="icon-share"></span>Share</button>
+      <button class="font-medium topcoat-button--cta float-right margin-right" ><span class="icon-uniF691"></span>Re-Take</button>
+      
+      <div class="clear"></div>
+    </div>
+  </div>
+  <!-- Exam Class Closed -->
+</div>
+<script type="text/javascript" src="phonegap.js"></script>
+<script data-main="js/index.js" src="js/require.min.js"></script>
+</body>
+</html>

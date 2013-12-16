@@ -1,15 +1,104 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.css" />
-        <title>Welcome to HomeWork</title>
-    </head>
-    <body>
-        <div id="content"></div>
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script data-main="js/index.js" src="js/require.min.js"></script>
-    </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <title>Welcome to HomeWork</title>
+</head>
+<body>
+  <div id="content">
+    <!--  Application Header Open -->
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item  full">
+        <h1 class="topcoat-navigation-bar__title font-large"><span class="icon-menu"></span>HomeWork</h1>
+      </div>
+    </div>
+    <!--  Application Header Closed -->
+
+    <!-- User Card Open -->
+    <div class="card card-user">
+      <div class="head">
+        <h1 class="font-large">Welcome</h1>
+        <h3 class="font-medium"><span class="icon-user"></span>Ali Shabaab bin Abu Yusra</h3>
+      </div>            
+      <hr>
+      <div class="card-body ">
+        <div class="topcoat-list ">
+          <!-- <h3 class="topcoat-list__header">Category</h3> -->
+          <ul class="topcoat-list__container">
+            <li class="topcoat-list__item">
+              <span class="inline-button float-right button-link">View Progress <span class="icon-arrow-right2"></span></span>  
+              <p class="font-medium"><span class="icon-copy"></span>Papers taken: <span><b>049</b></span></p>                  
+            </li>
+          </ul>
+        </div>
+        <button class="topcoat-button--cta float-right font-medium" > <span class="icon-rawaccesslogs"></span>Take a Paper </button>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <!-- User Card Closed -->
+
+    <!-- Exam Card Open -->
+    <div class="card card-exam">
+      <div class="head">
+        <h1 class="font-large">Suggestions</h1>
+      </div>
+      <div class="card-body">
+      <div class="topcoat-list">
+        <!-- <h3 class="topcoat-list__header">Category</h3> -->
+        <ul class="topcoat-list__container">
+          <!-- List Item -->
+          <li class="topcoat-list__item">
+            <img src="img/exam-logo-jamb.png" alt="" class="exam-logo">
+
+            <span class="inline-button float-right button-link">Take <span class="icon-arrow-right2"></span></span> 
+
+            <p class="font-small">
+             <span> JAMB </span><br>
+             <span> 2013 </span><br>
+             <span> English Language </span><br>
+           </p>   
+         </li>
+         <!-- List Item End -->
+         <!-- List Item -->
+         <li class="topcoat-list__item">
+          <img src="img/exam-logo-waec.png" alt="" class="exam-logo">
+
+          <span class="inline-button float-right button-link">Take <span class="icon-arrow-right2"></span></span> 
+
+          <p class="font-small">
+           <span> WAEC (Nov/Dec) </span><br>
+           <span> 1999 </span><br>
+           <span> Mathematics </span><br>
+         </p>   
+       </li>
+       <!-- List Item End -->
+       <!-- List Item -->
+       <li class="topcoat-list__item">
+        <img src="img/exam-logo-neco.png" alt="" class="exam-logo">
+
+        <span class="inline-button float-right button-link">Take <span class="icon-arrow-right2"></span></span> 
+
+        <p class="font-small">
+         <span> NECO (June/July) </span><br>
+         <span> 1988 </span><br>
+         <span> Food and Nutrition </span><br>
+       </p>   
+     </li>
+     <!-- List Item End -->
+   </ul>
+ </div>
+ <button class="topcoat-button--cta float-right font-medium" ><span class="icon-copy"></span>View all Papers</button>
+ <div class="clear"></div>
+ </div>
+</div>
+<!-- Exam Class Closed -->
+
+</div>
+<script type="text/javascript" src="phonegap.js"></script>
+<script data-main="js/index.js" src="js/require.min.js"></script>
+</body>
 </html>

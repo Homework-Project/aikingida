@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <title>Welcome to HomeWork</title>
+</head>
+<body>
+  <div id="content">
+    <!--  Application Header Open -->
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item  full">
+        <h1 class="topcoat-navigation-bar__title font-large"><span class="icon-menu"></span>HomeWork</h1>
+      </div>
+    </div>
+    <!--  Application Header Closed -->
+
+    <!-- Exam Card Open -->
+    <div class="card card-exam">
+      <div class="head">
+        <h1 class="font-large">Exam Details</h1>
+      </div>
+      <hr>
+      <div class="card-body">
+        <div class="topcoat-list">
+          <!-- <h3 class="topcoat-list__header">Category</h3> -->
+          <ul class="topcoat-list__container">
+            <!-- List Item -->
+            <li class="topcoat-list__item">
+              <img src="img/exam-logo-jamb.png" alt="" class="exam-logo">
+              <p class="font-small">
+               <span> JAMB </span><br>
+               <span> 2013 </span><br>
+               <span> English Language </span><br>
+             </p>   
+           </li>
+           <!-- List Item End -->
+         </ul>
+       </div>
+       <p class="font-small">
+        <span><span class="icon-copy"></span>40 Questions</span>
+      </p>
+      <p class="font-small">
+        <span class="icon-alarm"></span>
+        <input type="number" min="0" max="3" step="1" value="2" name="hr"><label for="hr">hr</label>
+        <input type="number" min="5" max="55" step="5" value="30" name="mins"><label for="mins">mins</label>
+
+      </p>
+      <button class="topcoat-button--cta float-right font-medium" >
+      <span class="icon-uniF471"></span>Start</button>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <!-- Exam Class Closed -->
+
+</div>
+<script type="text/javascript" src="phonegap.js"></script>
+<script data-main="js/index.js" src="js/require.min.js"></script>
+</body>
+</html>

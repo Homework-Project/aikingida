@@ -52,16 +52,20 @@ requirejs.config({
         'underscore': {
             exports: '_'
         }
-    }
+    },
+    urlArgs: { 'bust': Date.now() }// for debug purposes....remove after development
 });
 
 // Start the main app logic.
 requirejs(['jquery', 'backbone'],
         function($, Backbone) {
             $(document).ready(function() {
-                $.ajax(/*"http://soladnet.com/phonegap-api.php"*/"http://localhost/Login/index.php", {
+                $.ajax("http://soladnet.com/phonegap-api.php"/*"http://localhost/Login/index.php"*/, {
                     dataType: "json",
                     type: "POST",
+                    data:{
+                        a:"a"
+                    },
                     success: function(response, statusText, xhr) {
 //                        $("#content").html(response);
                         alert(0);
