@@ -21,31 +21,13 @@ requirejs.config({
         'underscore': {
             exports: '_'
         }
-    },
-    urlArgs: { 'bust': Date.now() }// for debug purposes....remove after development
+    }
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'backbone'],
+requirejs(['jquery', 'backbone', 'websqlstore'],
         function($, Backbone) {
             $(document).ready(function() {
-//                $.ajax("http://soladnet.com/phonegap-api.php"/*"http://localhost/Login/index.php"*/, {
-//                    dataType: "json",
-//                    type: "POST",
-//                    data:{
-//                        a:"a"
-//                    },
-//                    success: function(response, statusText, xhr) {
-////                        $("#content").html(response);
-//                        alert(0);
-//                    },
-//                    error: function(resp, status, error) {
-//                        alert(status)
-//                        
-//                    },
-//                    complete: function(resp, status) {
-//                        alert(status);
-//                    }
-//                });
+                var store1 = new WebSqlStore();
             });
         });
