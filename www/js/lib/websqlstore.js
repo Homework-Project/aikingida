@@ -22,6 +22,7 @@ var WebSqlStore = function(successCallback, errorCallback) {
             }, function(err) {
 //                console.log("Query error in ", queries[i], err.message);
                 self.processQuery(db, i + 1, queries, dbname);
+                alert(err.message);
             });
         } else {
             alert("Done importing!");
