@@ -14,19 +14,27 @@ var View = function() {
                 if (result.rows.length > 0) {
                     $("#country-list").append("<option value='-1'>Select Country</option>");
                     for (var i = 0; i < result.rows.length; i++) {
-                            var countryOption = "<option value='" + result.rows.item(i).phonecode + "'>" + result.rows.item(i).name + "</option>";
-                            $("#country-list").append(countryOption);
+                        var countryOption = "<option value='" + result.rows.item(i).phonecode + "'>" + result.rows.item(i).name + "</option>";
+                        $("#country-list").append(countryOption);
                     }
                     $("#country-list").on("change", function() {
-                        $("#tel").val(this.value)
+                        $("#tel").val(this.value === "-1" ? "" : this.value)
                     });
                 } else {
                     console.log("NO country found");
                 }
             });
         });
-        $("#card-welcome-next").on("click",function(){
-            alert($("#country-list").val())
+        $("#card-welcome-next").on("click", function() {
+            var country = $("#country-list").val();
+            var tel = $.trim($("#tel").val());
+            var fname = $.trim($("#fullname").val());
+            if (country !== "-1" && tel !== "" && fname !== "") {
+
+            } else {
+                navigator.notification.alert("Please fill in the right details", null, "Field Error", "Ok");
+            }
+
         })
     };
     this.renderSampleExamViewCard = function(options, callback) {

@@ -1,0 +1,5 @@
+<key>Plugins</key>
+<dict>
+    <key>Geolocation</key>
+    <string>CDVLocation</string>
+</dict>
