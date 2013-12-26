@@ -37,7 +37,24 @@ $(document).ready(function() {
                 obj.renderWelcomeViewCard({container: "#content", database: db});
                 obj.renderSampleExamViewCard({container: "#content"});
             } else {
-                console.log("Good");
+                var row = result.rows.item(0);
+                console.log(row.id, row.fullname, row.phonenum, row.country_code, row.status, row.activateCode);
+                if (row.status === "N") {// activation code not gotten yet, render verifiction page
+                    var option = {
+                        url: "http://localhost/aikingida/aikingida/api.php",
+                        type: "post",
+                        beforeSend: function() {
+                            console.log("about to send data");
+                        },
+                        success: function(response, statusText, xhr) {
+                            console.log("response: ", response);
+                        },
+                        data: {param: "sendCode", phonenum: row.phonenum, email: row.email, fullname: row.fullname, code: row.country_code, activateCode: row.activateCode, status: row.status}
+                    };
+                    $.ajax(option);
+                } else {//activation code gotten and activated successfully, render user home screen
+
+                }
             }
         });
     }, function(err) {

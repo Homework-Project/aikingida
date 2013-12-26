@@ -29,13 +29,23 @@ var View = function() {
             var country = $("#country-list").val();
             var tel = $.trim($("#tel").val());
             var fname = $.trim($("#fullname").val());
-            if (country !== "-1" && tel !== "" && fname !== "") {
-
+            if (country !== "-1" && tel !== "" && fname !== "" && tel.length > country.length) {
+                options.database.transaction(function(query) {
+                    var sql = "INSERT INTO user_info(phonenum,fullname,country_code) VALUES(?,?,?)";
+                    query.executeSql(sql, [tel,fname,country], function(tx, result) {
+                        console.log("INSERT SUCCESS!");
+                    });
+                });
             } else {
-                navigator.notification.alert("Please fill in the right details", null, "Field Error", "Ok");
+
+                if (navigator.notification) {
+                    navigator.notification.alert("Please fill in the right details", null, "Field Error", "Ok");
+                } else {
+                    alert("Please fill in the right details");
+                }
             }
 
-        })
+        });
     };
     this.renderSampleExamViewCard = function(options, callback) {
         var html = '<div class="card card-exam" id="card-sample-exam"><div class="head"><h1 class="font-large">Sample Exam</h1></div>' +
