@@ -15,8 +15,10 @@
     <feature name="http://api.phonegap.com/1.0/network" />
     <feature name="http://api.phonegap.com/1.0/notification" />
     
+    <feature name="http://tizen.org/api/systeminfo" required="true"/>
     
     <!-- Blackberry PhoneGap API -->
+    <feature name="NetworkStatus" value="NetworkStatus"/>
     <feature id="blackberry.system" required="true" version="1.0.0.0" />
     <feature id="phonegap" required="true" version="1.0.0" />
     <feature id="blackberry.find" required="true" version="1.0.0.0" />
@@ -32,9 +34,9 @@
     <!-- Blackberry PhoneGap API -->
     
     
-<!--    <rim:permissions>
-        <rim:permit>read_geolocation</rim:permit>
-    </rim:permissions>-->
+    <feature name="NetworkStatus">
+        <param name="ios-package" value="CDVConnection" />
+    </feature>
 
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
@@ -76,7 +78,7 @@
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="http://127.0.0.1*" />
-<!--    <access subdomains="true" uri="file:///store/home" />
+    <!--    <access subdomains="true" uri="file:///store/home" />
     <access subdomains="true" uri="file:///SDCard" />
     <access subdomains="true" uri="*" />-->
 </widget>

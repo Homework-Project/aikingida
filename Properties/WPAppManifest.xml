@@ -2,3 +2,6 @@
 <Capabilities>
     <Capability Name="ID_CAP_LOCATION" />
 </Capabilities>
+<Capabilities>
+    <Capability Name="ID_CAP_NETWORKING" />
+</Capabilities>
