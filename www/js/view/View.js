@@ -207,6 +207,7 @@ var View = function() {
                 '<div class="clear"></div></div></div>';
         $(options.container).html(this.getAppHeader());
         $("#content-span").append(html);
+        console.log("Papper Taken",options.papersTaken);
         
         
     }

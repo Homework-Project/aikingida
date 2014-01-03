@@ -34,11 +34,12 @@ var Database = function(db) {
                     if (i > 0) {
                         condition += " OR ";
                     }
-                    condition += x + " = " + options.condition[x];
+                    condition += x + " = '" + options.condition[x] + "'";
                     i++;
                 }
             }
             var sql = "SELECT " + col + " FROM " + options.table + " WHERE " + condition;
+            console.log(sql);
             query.executeSql(sql, options.values, callback);
         }, errorCallback);
     };
@@ -75,5 +76,9 @@ var Database = function(db) {
     this.delete = function(options, callback) {
 
     };
-
+    this.customFetch = function(sql, callback) {
+        db.transaction(function(query) {
+            query.executeSql(sql, callback);
+        });
+    };
 };
