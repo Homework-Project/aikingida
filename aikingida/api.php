@@ -1,7 +1,8 @@
 <?php
 
 include_once './UserClass.php';
-$db = new mysqli('localhost', 'root', '', 'my_homework_db');
+include_once './homeworkServer.php';
+header("Access-Control-Allow-Origin: *");
 if ($db->connect_errno > 0) {
     throw new Exception("Connection to server failed!");
 } else {
@@ -15,16 +16,19 @@ if ($db->connect_errno > 0) {
         $country_code = filter_input(INPUT_POST, 'code');
         $activateCode = $activateCodeComb[0] . $activateCodeComb[1] . $activateCodeComb[2] . $activateCodeComb[3];
         $user = new UserClass($phonenum);
+        $server = new HomeWorkServer();
         $user->setCountryCode($country_code);
         $user->setFullname($fullname);
         $user->setEmail($email);
         $user->setActivateCode($activateCode);
         if ($user->save()) {
             //send sms now!
+            $server->sendSMS($phonenum, "Your activation code is $activateCode", "HomeWork");
             echo json_encode(array("activateCode" => $activateCode));
         } else {
             $details = $user->getUserDetails($phonenum);
             if ($details) {
+                $server->sendSMS($phonenum, "Your activation code is $details[activateCode]", "HomeWork");
                 echo json_encode(array("activateCode" => $details['activateCode']));
             } else {
                 echo json_encode(array("err" => "Registration not successfull"));

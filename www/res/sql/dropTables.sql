@@ -6,3 +6,5 @@ DROP TABLE IF EXISTS result;
 DROP TABLE IF EXISTS subject;
 DROP TABLE IF EXISTS user_info;
 DROP TABLE IF EXISTS country;
+DROP TABLE IF EXISTS country_category;
+DROP TABLE IF EXISTS papers_taken;

@@ -19,15 +19,13 @@ $(document).ready(function() {
                 obj.renderVerificationViewCard({user: {phonenum: row.phonenum, fullname: row.fullname}, container: "#content", fadeIn: true, remote: remote, database: dbCrude});
             } else {//activation code gotten and activated successfully, render user home screen
                 console.log("render user home screen...");
-                var optionsHomeScreen = {user:{phonenum: row.phonenum, fullname: row.fullname},container: "#content-body", fadeIn: true, remote: remote, database: dbCrude};
-//                dbCrude.customFetch("SELECT * FROM result WHERE phonenum = '2348135606572'",function(){});
-//                dbCrude.fetch({table: "result", column: null, condition: {phonenum: row.phonenum}}, function(tx, result) {
-//                    optionsHomeScreen.papersTaken = result.rows.length;
-//                    console.log(result.rows.length);
-//                },function(e){
-//                    console.log(e.message);
-//                });
-                obj.renderUserHomeScreen(optionsHomeScreen);
+                dbCrude.fetch({table: "papers_taken", column: null, condition: {phonenum: row.phonenum}}, function(tx, result) {
+                    var optionsHomeScreen = {user: {phonenum: row.phonenum, fullname: row.fullname}, container: "#content-body", fadeIn: true, remote: remote, database: dbCrude};
+                    optionsHomeScreen = $.extend({papersTaken: result.rows.length}, optionsHomeScreen);
+                    obj.renderUserHomeScreen(optionsHomeScreen);
+                }, function(e) {
+                    console.log(e.message);
+                });
             }
         }
     }, function(err) {

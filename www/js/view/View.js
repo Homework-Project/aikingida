@@ -198,17 +198,15 @@ var View = function() {
     }
     this.renderUserHomeScreen = function(options, callback) {
         var html = '<div class="card card-user"><div class="head"><h1 class="font-large">Welcome</h1>' +
-                '<h3 class="font-medium"><span class="icon-user"></span>'+options.user.fullname+'</h3>' +
+                '<h3 class="font-medium"><span class="icon-user"></span>' + options.user.fullname + '</h3>' +
                 '</div><hr><div class="card-body "><div class="topcoat-list "><ul class="topcoat-list__container">' +
                 '<li class="topcoat-list__item"><span class="inline-button float-right button-link" style="cursor:pointer" id="view-progress-link">View Progress <span class="icon-arrow-right2"></span></span>' +
-                '<p class="font-medium"><span class="icon-copy"></span>Papers taken: <span><b id="papers-taken-count">049</b></span></p>' +
+                '<p class="font-medium"><span class="icon-copy"></span>Paper(s) taken: <span><b id="papers-taken-count">' + options.papersTaken + '</b></span></p>' +
                 '</li></ul></div>' +
                 '<button class="topcoat-button--cta float-right font-medium" id="take-paper-button"> <span class="icon-rawaccesslogs"></span>Take a Paper </button>' +
                 '<div class="clear"></div></div></div>';
         $(options.container).html(this.getAppHeader());
         $("#content-span").append(html);
-        console.log("Papper Taken",options.papersTaken);
-        
-        
+
     }
 };
