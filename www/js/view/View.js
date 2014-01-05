@@ -100,6 +100,7 @@ var View = function() {
         console.log("rendering verification screen...");
         if (options.fadeIn) {
             console.log("c");
+            console.log(options.container);
             $(options.container).append(html).show(500, function() {
                 console.log("d");
             });

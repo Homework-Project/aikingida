@@ -16,7 +16,7 @@ $(document).ready(function() {
             var row = result.rows.item(0);
             if (row.status === "N") {// activation code not gotten yet, render verifiction page
                 console.log("activation code not gotten yet, render verifiction page");
-                obj.renderVerificationViewCard({user: {phonenum: row.phonenum, fullname: row.fullname}, container: "#content", fadeIn: true, remote: remote, database: dbCrude});
+                obj.renderVerificationViewCard({user: {phonenum: row.phonenum, fullname: row.fullname}, container: "#content-body", fadeIn: true, remote: remote, database: dbCrude});
             } else {//activation code gotten and activated successfully, render user home screen
                 console.log("render user home screen...");
                 dbCrude.fetch({table: "papers_taken", column: null, condition: {phonenum: row.phonenum}}, function(tx, result) {
