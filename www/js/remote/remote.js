@@ -9,7 +9,7 @@ var Remote = function(options) {
         }, options);
         $.ajaxSetup(options);
     };
-    this.sendData = function(options, beforeSendCallback, successCallback, completeCallback,errorCallback) {
+    this.sendData = function(options, beforeSendCallback, successCallback, completeCallback, errorCallback) {
         var config = {};
         config.data = options;
         config.beforeSend = beforeSendCallback;

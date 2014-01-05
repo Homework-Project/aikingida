@@ -1,5 +1,6 @@
-
-$(document).ready(function() {
+//document.addEventListener("deviceready", init, false);
+init();
+function init() {
     var db = window.openDatabase("homeworkDB", "1.0", "HomeWork Database", 2 * 1024 * 1024);
     var dbCrude = new Database(db);
     var remote = new Remote();//class to do remote Ajax call
@@ -32,4 +33,5 @@ $(document).ready(function() {
         console.log("err", err.message);
         var store1 = new DatabaseInit({container: "#content-body", viewObj: obj, database: dbCrude, remote: remote, createDB: true});
     });
-});
+}
+;

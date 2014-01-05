@@ -149,6 +149,8 @@ var View = function() {
                                 }
                             }, function() {
                                 $(options.container).unmask();
+                            }, function(jqXHR, status, errorThrown) {
+                                alert(errorThrown);
                             });
                         } else {//inform user verification code is not valid
                             if (navigator.notification) {
