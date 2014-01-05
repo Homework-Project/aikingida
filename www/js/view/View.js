@@ -113,19 +113,24 @@ var View = function() {
             console.log(6);
             var code = $("#verification-field").val();
             if ($.trim(code).length > 0) {
+                console.log("code entered",code)
                 options.database.fetch({table: "user_info", column: ["activateCode"], condition: {phonenum: options.user.phonenum}},
                 function(tx, result) {
                     if (result.rows.length > 0) {
                         var row = result.rows.item(0);
                         if (code === row.activateCode.toString()) {//send activateCode online and verify den store
+                            console.log("code matched! sending data online...");
                             options.remote.sendData({param: "verifyActivationCode", phonenum: options.user.phonenum, code: code},
                             function() {
                                 if (!$(options.container).isMasked()) {
+                                    console.log("masking... ");
                                     $(options.container).mask();
                                 }
                             }, function(response) {
+                                console.log("back from server...sucess");
                                 var updateLocalDB = false;
                                 if (navigator.notification) {
+                                    console.log("feedback phone");
                                     if (!response.err) {
                                         updateLocalDB = true;
                                         navigator.notification.alert(response.status, null, "Success", "OK");
@@ -133,6 +138,7 @@ var View = function() {
                                         navigator.notification.alert(response.err, null, "Error", "OK");
                                     }
                                 } else {
+                                    console.log("feedback system");
                                     if (!response.err) {
                                         updateLocalDB = true;
                                         alert(response.status);
@@ -140,6 +146,7 @@ var View = function() {
                                         alert(response.err);
                                     }
                                 }
+                                console.log("update local db value is ",updateLocalDB);
                                 if (updateLocalDB) {
                                     options.database.update({table: "user_info", valueSet: {status: "Y"}, condition: {phonenum: options.user.phonenum}}, function(tx, result) {
                                         //show user home screen
