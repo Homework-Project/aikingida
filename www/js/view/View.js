@@ -29,7 +29,6 @@ var View = function() {
         //event triggered when next button clicked
         $("#card-welcome-next").bind("click", function() {
             console.log(3);
-            $("#card-welcome-next").attr("disabled", "disabled");
             var country = $("#country-list").val();
             var tel = $.trim($("#tel").val());
             var fname = $.trim($("#fullname").val());
@@ -37,7 +36,8 @@ var View = function() {
                 if (!$(options.container).isMasked()) {
                     $(options.container).mask();
                 }
-                options.database.insert({table: "user_info", column: ["phonenum", "fullname", "country_code"], values: [tel, fname, country]}, function(tx, result) {
+                options.database.insert({table: "user_info", column: ["phonenum", "fullname", "country_code"], values: [tel, fname, country]}, 
+                function(tx, result) {
                     options.remote.sendData({param: "sendCode", phonenum: tel, email: "", fullname: fname, code: country},
                     function() {//beforeSendCallback
                         if (!$(options.container).isMasked()) {
@@ -45,8 +45,10 @@ var View = function() {
                         }
                     }
                     , function(response, statusText, xhr) {//successCallback
+                        console.log("server response",response);
                         if (!response.err) {
-                            options.database.update({table: "user_info", valueSet: {activateCode: response.activateCode}, condition: {phonenum: tel}}, function(tx, result) {
+                            options.database.update({table: "user_info", valueSet: {activateCode: response.activateCode}, condition: {phonenum: tel}}, 
+                            function(tx, result) {
                                 console.log(4);
                                 console.log("update success!");
                                 self.renderVerificationViewCard({user: {phonenum: tel, fullname: fname}, container: options.container, remote: options.remote, database: options.database});
@@ -60,6 +62,8 @@ var View = function() {
                         }
                     }, function() {//completeCallback
                         $(options.container).unmask();
+                    },function(){
+                        
                     });
                 });
             } else {

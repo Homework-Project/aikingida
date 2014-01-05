@@ -71,7 +71,7 @@ var Database = function(db) {
             var sql = "UPDATE " + options.table + " SET " + valueSet + " WHERE " + condition;
             console.log(sql);
             query.executeSql(sql, options.values, callback);
-        });
+        },function(e){console.log(e.message)});
     };
     this.delete = function(options, callback) {
 
