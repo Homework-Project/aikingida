@@ -2,8 +2,8 @@ var Remote = function(options) {
 
     this.configure = function(options, callback) {
         options = $.extend({
-            url: "http://localhost/aikingida/aikingida/api.php",
-//            url: "http://homework.sch.ng/api.php",
+//            url: "http://localhost/aikingida/aikingida/api.php",
+            url: "http://homework.sch.ng/api.php",
             type: "post",
             dataType: "json"
         }, options);
