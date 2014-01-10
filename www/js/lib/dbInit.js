@@ -29,6 +29,7 @@ var DatabaseInit = function(options) {//the createDB is boolean to either creat 
                 options.remote = new Remote();
                 options.viewObj.renderWelcomeViewCard(options);
                 options.viewObj.renderSampleExamViewCard(options);
+                $(options.container).unmask();
             } else {
                 console.log("Tables Removed Succssfully!");
             }

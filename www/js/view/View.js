@@ -33,25 +33,23 @@ var View = function() {
             var tel = $.trim($("#tel").val());
             var fname = $.trim($("#fullname").val());
             if (country !== "-1" && tel !== "" && fname !== "" && tel.length > country.length) {
-                if (!$(options.container).isMasked()) {
-                    $(options.container).mask();
-                }
-                options.database.insert({table: "user_info", column: ["phonenum", "fullname", "country_code"], values: [tel, fname, country]}, 
+                self.showWaitScreen(options.container, true);
+                options.database.insert({table: "user_info", column: ["phonenum", "fullname", "country_code"], values: [tel, fname, country]},
                 function(tx, result) {
                     options.remote.sendData({param: "sendCode", phonenum: tel, email: "", fullname: fname, code: country},
                     function() {//beforeSendCallback
-                        if (!$(options.container).isMasked()) {
-                            $(options.container).mask();
-                        }
+                        self.showWaitScreen(options.container, true);
                     }
                     , function(response, statusText, xhr) {//successCallback
-                        console.log("server response",response);
+                        console.log("server response", response);
                         if (!response.err) {
-                            options.database.update({table: "user_info", valueSet: {activateCode: response.activateCode}, condition: {phonenum: tel}}, 
+                            options.database.update({table: "user_info", valueSet: {activateCode: response.activateCode}, condition: {phonenum: tel}},
                             function(tx, result) {
                                 console.log(4);
                                 console.log("update success!");
-                                self.renderVerificationViewCard({user: {phonenum: tel, fullname: fname}, container: options.container, remote: options.remote, database: options.database});
+                                var user = {user: {phonenum: tel, fullname: fname, activateCode: response.activateCode}};
+                                options = $.extend(options, user)
+                                self.renderVerificationViewCard(options);
                             });
                         } else {
                             if (navigator.notification) {
@@ -61,9 +59,9 @@ var View = function() {
                             }
                         }
                     }, function() {//completeCallback
-                        $(options.container).unmask();
-                    },function(){
-                        
+                        self.showWaitScreen(options.container, false);
+                    }, function() {
+
                     });
                 });
             } else {
@@ -87,7 +85,6 @@ var View = function() {
         $(options.container).append(html);
     };
     this.renderVerificationViewCard = function(options, callback) {
-        console.log(5);
         var html = '<div class="card card-user" id="card-verify"><div class="head"><h1 class="font-large">Hi ' + options.user.fullname + '</h1></div>' +
                 '<hr><div class="card-body"><p class="font-medium">' +
                 'An SMS has been sent to <span>' + options.user.phonenum + '</span>. Please enter the code you recieved here. <br></p>' +
@@ -100,80 +97,62 @@ var View = function() {
                 $(this).remove();
             });
         }
-        console.log("b");
         console.log("rendering verification screen...");
         if (options.fadeIn) {
-            console.log("c");
-            console.log(options.container);
             $(options.container).append(html).show(500, function() {
-                console.log("d");
             });
         } else {
-            console.log("c2");
             $(options.container).append(html);
         }
 
         $("#verify-button").bind("click", function() {
-            console.log(6);
             var code = $("#verification-field").val();
             if ($.trim(code).length > 0) {
-                console.log("code entered",code)
-                options.database.fetch({table: "user_info", column: ["activateCode"], condition: {phonenum: options.user.phonenum}},
-                function(tx, result) {
-                    if (result.rows.length > 0) {
-                        var row = result.rows.item(0);
-                        if (code === row.activateCode.toString()) {//send activateCode online and verify den store
-                            console.log("code matched! sending data online...");
-                            options.remote.sendData({param: "verifyActivationCode", phonenum: options.user.phonenum, code: code},
-                            function() {
-                                if (!$(options.container).isMasked()) {
-                                    console.log("masking... ");
-                                    $(options.container).mask();
-                                }
-                            }, function(response) {
-                                console.log("back from server...sucess");
-                                var updateLocalDB = false;
-                                if (navigator.notification) {
-                                    console.log("feedback phone");
-                                    if (!response.err) {
-                                        updateLocalDB = true;
-                                        navigator.notification.alert(response.status, null, "Success", "OK");
-                                    } else {
-                                        navigator.notification.alert(response.err, null, "Error", "OK");
-                                    }
-                                } else {
-                                    console.log("feedback system");
-                                    if (!response.err) {
-                                        updateLocalDB = true;
-                                        alert(response.status);
-                                    } else {
-                                        alert(response.err);
-                                    }
-                                }
-                                console.log("update local db value is ",updateLocalDB);
-                                if (updateLocalDB) {
-                                    options.database.update({table: "user_info", valueSet: {status: "Y"}, condition: {phonenum: options.user.phonenum}}, function(tx, result) {
-                                        //show user home screen
-                                        console.log("render user home screen");
-                                        self.renderUserHomeScreen({user: {phonenum: options.user.phonenum, fullname: options.user.fullname}, container: options.container, remote: options.remote, database: options.database});
-                                    });
-                                }
-                            }, function() {
-                                $(options.container).unmask();
-                            }, function(jqXHR, status, errorThrown) {
-                                alert(errorThrown);
-                            });
-                        } else {//inform user verification code is not valid
-                            if (navigator.notification) {
-                                navigator.notification.alert("Code invalid, please check code and try again", null, "Error", "OK");
+                console.log("code entered", code)
+                if (code === options.user.activateCode.toString()) {//send activateCode online and verify den store
+                    console.log("code matched! sending data online...");
+                    options.remote.sendData({param: "verifyActivationCode", phonenum: options.user.phonenum, code: code},
+                    function() {
+                        self.showWaitScreen(options.container, true);
+                    }, function(response) {//back from server
+                        console.log("back from server...sucess");
+                        var updateLocalDB = false;
+                        if (navigator.notification) {
+                            if (!response.err) {
+                                updateLocalDB = true;
+                                navigator.notification.alert(response.status, null, "Success", "OK");
                             } else {
-                                alert("Code invalid, please check code and try again");
+                                navigator.notification.alert(response.err, null, "Error", "OK");
+                            }
+                        } else {
+                            if (!response.err) {
+                                updateLocalDB = true;
+                                alert(response.status);
+                            } else {
+                                alert(response.err);
                             }
                         }
+                        console.log("update local db value is ", updateLocalDB);
+                        if (updateLocalDB) {
+                            options.database.update({table: "user_info", valueSet: {status: "Y"}, condition: {phonenum: options.user.phonenum}},
+                            function(tx, result) {
+                                //show veryfication success screen
+                                console.log("renderVerificationSuccessViewCard");
+                                self.renderVerificationSuccessViewCard(options);
+                            });
+                        }
+                    }, function() {
+                        self.showWaitScreen(options.container, false);
+                    }, function(jqXHR, status, errorThrown) {
+                        alert(errorThrown);
+                    });
+                } else {//inform user verification code is not valid
+                    if (navigator.notification) {
+                        navigator.notification.alert("Code invalid, please check code and try again", null, "Error", "OK");
                     } else {
-                        console.log("NO country found");
+                        alert("Code invalid, please check code and try again");
                     }
-                });
+                }
             } else {
                 if (navigator.notification) {
                     navigator.notification.alert("Please enter verification code in the field provided", null, "Notice", "OK");
@@ -185,9 +164,7 @@ var View = function() {
         $("#resend-verification-link").bind("click", function() {
             options.remote.sendData({param: "resentActivationCode", phonenum: options.user.phonenum},
             function() {//beforeSendCallback
-                if (!$(options.container).isMasked()) {
-                    $(options.container).mask();
-                }
+                self.showWaitScreen(options.container, true);
             }, function(response, statusText, xhr) {//successCallback
                 if (navigator.notification) {
                     if (!response.err) {
@@ -203,24 +180,91 @@ var View = function() {
                     }
                 }
             }, function() {//completeCallback
-                $(options.container).unmask();
+                self.showWaitScreen(options.container, false);
             });
         });
     };
+    this.renderVerificationSuccessViewCard = function(options, callback) {
+        for (x in options) {
+            console.log(x);
+        }
+        var html = '<div class="card card-user"><div class="head"><h1 class="font-large grade-a"><span class="icon-uniF471"></span>Successful</h1></div>' +
+                '<hr><div class="card-body"><p class="font-small">' +
+                options.user.fullname + ', your phone number has been verified successfully. You can now enjoy HomeWork :)' +
+                '<br>To improve Paper suggestions, please select any of the options below.' +
+                '</p><label class="topcoat-radio-button"><input type="radio" name="topcoat" value="Art" id="radio-art"><div class="topcoat-radio-button__checkmark"></div><span class="font-medium"><span class="icon-brush"></span>Art</span></label>' +
+                '<br><label class="topcoat-radio-button"><input type="radio" name="topcoat" value="Commercial" id="radio-commercial"><div class="topcoat-radio-button__checkmark"></div><span class="font-medium"><span class="icon-stocks"></span>Commercial</span></label>' +
+                '<br><label class="topcoat-radio-button"><input type="radio" name="topcoat" value="Science" id="radio-science"><div class="topcoat-radio-button__checkmark"></div><span class="font-medium"><span class="icon-lab"></span>Science</span></label><br>' +
+                '<button class="topcoat-button--cta float-right font-medium" id="finish-button"><span class="icon-uniF471"></span>Finish</button><div class="clear"></div></div></div>';
+        $(options.container).append(html);
+        $("#card-verify").fadeOut(500, function() {
+            $(this).remove();
+        });
+        $("#finish-button").bind("click", function() {
+            self.showWaitScreen(options.container, true);
+            var suggestTag = $("input[name='topcoat']:checked").val();
+            suggestTag = suggestTag ? suggestTag : "Science,Art,Commercial";
+            console.log(suggestTag);
+            options.database.update({table: "user_info", valueSet: {sugestCategory: suggestTag}, condition: {phonenum: options.user.phonenum}},
+            function(tx, result) {
+                options.user = $.extend(options.user, {sugestCategory: suggestTag});
+                //show user home screen
+                self.renderUserHomeScreen(options);
+            });
+        });
+    }
     this.getAppHeader = function() {
-        return '<div class="topcoat-navigation-bar"><div class="topcoat-navigation-bar__item  full"><h1 class="topcoat-navigation-bar__title font-large"><span class="icon-menu"></span>HomeWork</h1></div></div><span id="content-span"></span>';
+        return '<div class="topcoat-navigation-bar"><div class="topcoat-navigation-bar__item  full"><h1 class="topcoat-navigation-bar__title font-large menu-trigger"><span class="icon-menu"></span>HomeWork</h1></div></div><span id="content-span"></span>';
     }
     this.renderUserHomeScreen = function(options, callback) {
         var html = '<div class="card card-user"><div class="head"><h1 class="font-large">Welcome</h1>' +
                 '<h3 class="font-medium"><span class="icon-user"></span>' + options.user.fullname + '</h3>' +
                 '</div><hr><div class="card-body "><div class="topcoat-list "><ul class="topcoat-list__container">' +
                 '<li class="topcoat-list__item"><span class="inline-button float-right button-link" style="cursor:pointer" id="view-progress-link">View Progress <span class="icon-arrow-right2"></span></span>' +
-                '<p class="font-medium"><span class="icon-copy"></span>Paper(s) taken: <span><b id="papers-taken-count">' + options.papersTaken + '</b></span></p>' +
+                '<p class="font-medium"><span class="icon-copy"></span>Paper(s) taken: <span><b id="papers-taken-count">' + (options.papersTaken ? options.papersTaken : 0) + '</b></span></p>' +
                 '</li></ul></div>' +
                 '<button class="topcoat-button--cta float-right font-medium" id="take-paper-button"> <span class="icon-rawaccesslogs"></span>Take a Paper </button>' +
                 '<div class="clear"></div></div></div>';
         $(options.container).html(this.getAppHeader());
-        $("#content-span").append(html);
-
+        $(".menu-trigger").bind('click', function() {
+            if ($("body").hasClass("menu-active")) {
+                $("body").removeClass("menu-active");
+            } else {
+                $("body").addClass("menu-active");
+            }
+        });
+        options.container = "#content-span";
+        $(options.container).append(html).fadeIn(500);
+        this.renderSuggestExamViewCard(options, null);
+    };
+    this.renderSuggestExamViewCard = function(options, callback) {
+        var html = '<div class="card card-exam"><div class="head"><h1 class="font-large">Suggestions</h1></div>' +
+                '<div class="card-body"><div class="topcoat-list"><ul class="topcoat-list__container">';
+        options.database.search({table: "subject", column: null, searchColumn: ["sugestCategory"], searchTerms: options.user.sugestCategory.split(",")},
+        function(tx, result) {
+//            if (result.rows.length > 0) {
+//                $("#country-list").append("<option value='-1'>Select Country</option>");
+//                for (var i = 0; i < result.rows.length; i++) {
+//                    var countryOption = "<option value='" + result.rows.item(i).phonecode + "'>" + result.rows.item(i).name + "</option>";
+//                    $("#country-list").append(countryOption);
+//                }
+//                $("#country-list").on("change", function() {
+//                    $("#tel").val(this.value === "-1" ? "" : this.value);
+//                });
+//            } else {
+//                console.log("NO country found");
+//            }
+        }, null);
+        html += '</ul></div><button class="topcoat-button--cta float-right font-medium" ><span class="icon-copy"></span>View all Exams</button>' +
+                '<div class="clear"></div></div></div>';
     }
+    this.showWaitScreen = function(container, maskUnMask) {
+        if (maskUnMask) {
+            if (!$(container).isMasked()) {
+                $(container).mask();
+            }
+        } else {
+            $(container).unmask();
+        }
+    };
 };

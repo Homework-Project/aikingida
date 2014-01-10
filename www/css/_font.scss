@@ -2,8 +2,8 @@
 	font-family: 'hw';
 	src:url('../fonts/hw.eot');
 	src:url('../fonts/hw.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/hw.ttf') format('truetype'),
 		url('../fonts/hw.woff') format('woff'),
+		url('../fonts/hw.ttf') format('truetype'),
 		url('../fonts/hw.svg#hw') format('svg');
 	font-weight: normal;
 	font-style: normal;
@@ -92,6 +92,21 @@
 }
 .icon-lab:before {
 	content: "\e61c";
+}
+.icon-twitter:before {
+	content: "\e61e";
+}
+.icon-facebook:before {
+	content: "\e61f";
+}
+.icon-google-plus:before {
+	content: "\e620";
+}
+.icon-instagram:before {
+	content: "\e621";
+}
+.icon-blackberry:before {
+	content: "\e622";
 }
 .icon-share:before {
 	content: "\e615";

@@ -1,8 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Varela+Round);
 @font-face {
   font-family: 'hw';
   src: url("../fonts/hw.eot");
-  src: url("../fonts/hw.eot?#iefix") format("embedded-opentype"), url("../fonts/hw.ttf") format("truetype"), url("../fonts/hw.woff") format("woff"), url("../fonts/hw.svg#hw") format("svg");
+  src: url("../fonts/hw.eot?#iefix") format("embedded-opentype"), url("../fonts/hw.woff") format("woff"), url("../fonts/hw.ttf") format("truetype"), url("../fonts/hw.svg#hw") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -88,6 +87,21 @@
 .icon-lab:before {
   content: "\e61c"; }
 
+.icon-twitter:before {
+  content: "\e61e"; }
+
+.icon-facebook:before {
+  content: "\e61f"; }
+
+.icon-google-plus:before {
+  content: "\e620"; }
+
+.icon-instagram:before {
+  content: "\e621"; }
+
+.icon-blackberry:before {
+  content: "\e622"; }
+
 .icon-share:before {
   content: "\e615"; }
 
@@ -109,8 +123,22 @@
 .icon-brush:before {
   content: "\e61d"; }
 
+.welcome-container {
+  background: #fff; }
+  .welcome-container p {
+    margin: 0; }
+
+.welcome-logo-full {
+  max-width: 25%; }
+  .welcome-logo-full img {
+    padding: 0; }
+
+@font-face {
+  font-family: CentraleSansRounded;
+  src: url("../fonts/CentraleSansRounded.otf") format("opentype"); }
+
 * {
-  font-family: 'Varela Round', sans-serif; }
+  font-family: 'CentraleSansRounded', sans-serif; }
 
 html {
   font-size: 125%; }
@@ -119,6 +147,9 @@ img {
   border: none;
   padding: .5rem;
   max-width: 100%; }
+
+.text-align-center {
+  text-align: center; }
 
 .padding-right-large {
   padding-right: 3rem; }
@@ -152,6 +183,9 @@ img {
 
 .font-large {
   font-size: 2rem; }
+
+.font-extra-large {
+  font-size: 4rem; }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0; }

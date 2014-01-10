@@ -8,21 +8,17 @@ function init() {
     var obj = new View();
     dbCrude.fetch({table: "user_info", column: null, condition: null}, function(tx, result) {
         if (result.rows.length === 0) {//new registration, render welcome page
-            console.log(1);
             obj.renderWelcomeViewCard({container: "#content-body", database: dbCrude, remote: remote});
             obj.renderSampleExamViewCard({container: "#content-body", remote: remote});
         } else {
-            console.log("a");
-            console.log("found user!");
             var row = result.rows.item(0);
             if (row.status === "N") {// activation code not gotten yet, render verifiction page
                 console.log("activation code not gotten yet, render verifiction page");
-                obj.renderVerificationViewCard({user: {phonenum: row.phonenum, fullname: row.fullname}, container: "#content-body", fadeIn: true, remote: remote, database: dbCrude});
+                obj.renderVerificationViewCard({user: row, container: "#content-body", fadeIn: true, remote: remote, database: dbCrude});
             } else {//activation code gotten and activated successfully, render user home screen
                 console.log("render user home screen...");
                 dbCrude.fetch({table: "papers_taken", column: null, condition: {phonenum: row.phonenum}}, function(tx, result) {
-                    var optionsHomeScreen = {user: {phonenum: row.phonenum, fullname: row.fullname}, container: "#content-body", fadeIn: true, remote: remote, database: dbCrude};
-                    optionsHomeScreen = $.extend({papersTaken: result.rows.length}, optionsHomeScreen);
+                    var optionsHomeScreen = {user: row, container: "#content-body", fadeIn: true, remote: remote, database: dbCrude, papersTaken: result.rows.length};
                     obj.renderUserHomeScreen(optionsHomeScreen);
                 }, function(e) {
                     console.log(e.message);
@@ -31,7 +27,10 @@ function init() {
         }
     }, function(err) {
         console.log("err", err.message);
+        if (!$("#content-body").isMasked()) {
+            console.log("masking... ");
+            $("#content-body").mask();
+        }
         var store1 = new DatabaseInit({container: "#content-body", viewObj: obj, database: dbCrude, remote: remote, createDB: true});
     });
 }
-;

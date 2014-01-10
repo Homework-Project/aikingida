@@ -20,6 +20,24 @@ var Database = function(db) {
         });
     };
     this.search = function(options, callback) {
+        var col = "*", condition = "1";
+        if (options.column) {//column is array not object!
+            col = options.column.join();
+        }
+        if (options.searchColumn) {
+            condition = "";
+            for (var i = 0; i < options.searchColumn.length; i++) {
+                var column = options.searchColumn[i];
+                for (var k = 0; k < options.searchTerms.length; k++) {
+                    if (k > 0) {
+                        condition += " OR ";
+                    }
+                    condition += column + " LIKE '%" + options.searchTerms[k] + "%'";
+                }
+            }
+        }
+        var sql = "SELECT " + col + " FROM " + options.table + " WHERE " + condition;
+        console.log(sql);
     };
     this.fetch = function(options, callback, errorCallback) {
         db.transaction(function(query) {
@@ -71,7 +89,9 @@ var Database = function(db) {
             var sql = "UPDATE " + options.table + " SET " + valueSet + " WHERE " + condition;
             console.log(sql);
             query.executeSql(sql, options.values, callback);
-        },function(e){console.log(e.message)});
+        }, function(e) {
+            console.log(e.message);
+        });
     };
     this.delete = function(options, callback) {
 

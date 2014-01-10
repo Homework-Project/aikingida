@@ -3,9 +3,6 @@
 include_once './UserClass.php';
 include_once './homeworkServer.php';
 header("Access-Control-Allow-Origin: *");
-if ($db->connect_errno > 0) {
-    throw new Exception("Connection to server failed!");
-} else {
     if (filter_input(INPUT_POST, 'param') == "sendCode") {
         $activateCodeComb = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         shuffle($activateCodeComb);
@@ -23,12 +20,12 @@ if ($db->connect_errno > 0) {
         $user->setActivateCode($activateCode);
         if ($user->save()) {
             //send sms now!
-            $server->sendSMS($phonenum, "Your activation code is $activateCode", "HomeWork");
+            //$server->sendSMS($phonenum, "Your activation code is $activateCode", "HomeWork");
             echo json_encode(array("activateCode" => $activateCode));
         } else {
             $details = $user->getUserDetails($phonenum);
             if ($details) {
-                $server->sendSMS($phonenum, "Your activation code is $details[activateCode]", "HomeWork");
+                //$server->sendSMS($phonenum, "Your activation code is $details[activateCode]", "HomeWork");
                 echo json_encode(array("activateCode" => $details['activateCode']));
             } else {
                 echo json_encode(array("err" => "Registration not successfull"));
@@ -37,8 +34,11 @@ if ($db->connect_errno > 0) {
     } else if (filter_input(INPUT_POST, 'param') == "resentActivationCode") {
         $phonenum = filter_input(INPUT_POST, 'phonenum');
         $user = new UserClass($phonenum);
+        $server = new HomeWorkServer();
         $details = $user->getUserDetails($phonenum);
         if ($details) {
+            //send sms now!
+            //$server->sendSMS($phonenum, "Your activation code is $details[activateCode]", "HomeWork");
             echo json_encode(array("status" => "Activation Code sent! You will receive an SMS soon."));
         } else {
             echo json_encode(array("err" => "We have trouble sending you an SMS, please try again later."));
@@ -62,5 +62,4 @@ if ($db->connect_errno > 0) {
             echo json_encode(array("err" => "We have trouble activating your account, please try again later."));
         }
     }
-}
 ?>

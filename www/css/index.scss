@@ -3,9 +3,13 @@ $green: 	#bada55;
 $blue: 		#019add;
 
 @import "_font.scss";
-@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+@import "_welcome-page.scss";
+@font-face {
+	font-family: CentraleSansRounded;
+	src: url("../fonts/CentraleSansRounded.otf") format("opentype");
+}
 *{
-	font-family: 'Varela Round', sans-serif;
+	font-family: 'CentraleSansRounded', sans-serif;
 }
 
 html{
@@ -15,6 +19,9 @@ img {
 	border: none;
  	padding: .5rem; 
  	max-width: 100%;
+}
+.text-align-center{
+	text-align: center;
 }
 .padding-right-large{
 	padding-right: 3rem;
@@ -40,6 +47,7 @@ img {
 .font-small {font-size: 1rem;}
 .font-medium {font-size: 1.3rem;}
 .font-large {font-size: 2rem;}
+.font-extra-large {font-size: 4rem;}
 
 h1,h2,h3,h4,h5,h6 { margin: 0;}
 // Font End

@@ -1,32 +1,16 @@
 $orange: #f53b0a;
 $green: #bada55;
 $blue: #019add;
-.card-user{
-	.head{
-
-	}
+.welcome-container{
 	background: #fff;
-	border: 2px solid $green;
-	margin: .5em;
-	:nth-last-child(1){
-		margin-bottom: 0;
-	}
-	hr{
-		border: 1px solid $orange;
-	}
+	p{margin: 0;}
 }
-.card-exam{
-	.head{
-		background: $orange;
-		color: #fff;
-	}
-	background: #fff;
-	border: none;
-	margin: .5em;
-	:nth-last-child(1){
-		margin-bottom: 0;
-	}
-	hr{
-		border: 1px solid $orange;
-	}
+.head{
+}
+.welcome-logo-full{
+	max-width: 25%;
+	// position: absolute;
+	// bottom: 0;
+	// right: 0;
+	img{padding: 0;}
 }
