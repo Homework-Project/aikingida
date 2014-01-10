@@ -214,7 +214,7 @@ var View = function() {
         });
     }
     this.getAppHeader = function() {
-        return '<div class="topcoat-navigation-bar"><div class="topcoat-navigation-bar__item  full"><h1 class="topcoat-navigation-bar__title font-large menu-trigger"><span class="icon-menu"></span>HomeWork</h1></div></div><span id="content-span"></span>';
+        return '<div class="topcoat-navigation-bar"><div class="topcoat-navigation-bar__item  full"><h1 class="topcoat-navigation-bar__title font-large"><span class="icon-menu menu-trigger"></span>HomeWork</h1></div></div><span id="content-span"></span>';
     }
     this.renderUserHomeScreen = function(options, callback) {
         var html = '<div class="card card-user"><div class="head"><h1 class="font-large">Welcome</h1>' +
