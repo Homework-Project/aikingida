@@ -20,24 +20,27 @@ var Database = function(db) {
         });
     };
     this.search = function(options, callback) {
-        var col = "*", condition = "1";
-        if (options.column) {//column is array not object!
-            col = options.column.join();
-        }
-        if (options.searchColumn) {
-            condition = "";
-            for (var i = 0; i < options.searchColumn.length; i++) {
-                var column = options.searchColumn[i];
-                for (var k = 0; k < options.searchTerms.length; k++) {
-                    if (k > 0) {
-                        condition += " OR ";
+        db.transaction(function(query) {
+            var col = "*", condition = "1";
+            if (options.column) {//column is array not object!
+                col = options.column.join();
+            }
+            if (options.searchColumn) {
+                condition = "";
+                for (var i = 0; i < options.searchColumn.length; i++) {
+                    var column = options.searchColumn[i];
+                    for (var k = 0; k < options.searchTerms.length; k++) {
+                        if (k > 0) {
+                            condition += " OR ";
+                        }
+                        condition += column + " LIKE '%" + options.searchTerms[k] + "%'";
                     }
-                    condition += column + " LIKE '%" + options.searchTerms[k] + "%'";
                 }
             }
-        }
-        var sql = "SELECT " + col + " FROM " + options.table + " WHERE " + condition;
-        console.log(sql);
+            var sql = "SELECT " + col + " FROM " + options.table + " WHERE " + condition;
+            console.log(sql);
+            query.executeSql(sql, options.values, callback);
+        });
     };
     this.fetch = function(options, callback, errorCallback) {
         db.transaction(function(query) {
@@ -50,7 +53,7 @@ var Database = function(db) {
                 var x, i = 0;
                 for (x in options.condition) {
                     if (i > 0) {
-                        condition += " OR ";
+                        condition += " AND ";
                     }
                     condition += x + " = '" + options.condition[x] + "'";
                     i++;
