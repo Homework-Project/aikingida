@@ -216,7 +216,14 @@ var View = function() {
         });
     };
     this.getAppHeader = function() {
-        var menu = '<div id="slide-menu"><ul class="font-medium"><li>Home</li><li>Take A Paper</li><li>Overall Progress</li><li>Settings</li><li id="menuHelp">Help</li><li>About</li></ul></div>';
+        var menu = '<div id="slide-menu"><div class="profile-box"><span class="name font-small">Ali Shabab Ibn Abu Yusrah</span></div><ul>'+
+      '<li><a href="#home" class="font-medium"><span class="icon-uniF489"></span>Home</a></li>'+
+      '<li><a href="#home" class="font-medium"><span class="icon-copy"></span>Take A Paper</a></li>'+
+      '<li><a href="#home" class="font-medium"><span class="icon-bars"></span>Overall Progress </a></li>'+
+      '<li><a href="#home" class="font-medium"><span class="icon-wrench"></span>Settings</a></li>'+
+      '<li id="menuHelp"><a href="#home" class="font-medium"><span class="icon-help"></span>Help </a></li>'+
+      '<li><a href="#home" class="font-medium"><span class="icon-info"></span>About </a></li>'+
+    '</ul></div>';
         $("body").prepend(menu);
         $("#menuHelp").bind("click", function() {
             $("body").removeClass("menu-active");
