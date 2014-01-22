@@ -201,6 +201,17 @@ li {
   li:nth-last-child(1) {
     border-bottom-color: transparent; }
 
+.profile-box {
+  margin-bottom: 3em;
+  padding: 1em;
+  color: #f2f2f2; }
+  .profile-box .profile-pic {
+    max-width: 50px;
+    float: left;
+    display: inline-block; }
+  .profile-box .name {
+    float: left; }
+
 .card {
   box-shadow: 0px 0px 4px 0px #999;
   background: #fff;

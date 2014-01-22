@@ -11,20 +11,24 @@
 </head>
 <body>
   <div id="slide-menu">
+    <div class="profile-box">
+         <span class="name font-small">Ali Shabab Ibn Abu Yusrah</span>
+    </div>
+   
     <ul>
-      <li><a href="#home" class="font-medium">Home</a></li>
-      <li><a href="#home" class="font-medium">Take A Paper</a></li>
-      <li><a href="#home" class="font-medium">Overall Progress </a></li>
-      <li><a href="#home" class="font-medium">Settings </a></li>
-      <li><a href="#home" class="font-medium">Help </a></li>
-      <li><a href="#home" class="font-medium">About </a></li>
+      <li><a href="#home" class="font-medium"><span class="icon-uniF489"></span>Home</a></li>
+      <li><a href="#home" class="font-medium"><span class="icon-copy"></span>Take A Paper</a></li>
+      <li><a href="#home" class="font-medium"><span class="icon-bars"></span>Overall Progress </a></li>
+      <li><a href="#home" class="font-medium"><span class="icon-wrench"></span>Settings</a></li>
+      <li><a href="#home" class="font-medium"><span class="icon-help"></span>Help </a></li>
+      <li><a href="#home" class="font-medium"><span class="icon-info"></span>About </a></li>
     </ul>
   </div>
   <div id="content">
     <!--  Application Header Open -->
     <div class="topcoat-navigation-bar">
       <div class="topcoat-navigation-bar__item  full">
-        <h1 class="topcoat-navigation-bar__title font-large menu-trigger"><span class="icon-menu"></span>HomeWork</h1>
+        <h1 class="topcoat-navigation-bar__title font-large"><span class="icon-menu menu-trigger"></span>HomeWork</h1>
       </div>
     </div>
     <!--  Application Header Closed -->
@@ -110,7 +114,48 @@
 
 </div>
 <script type="text/javascript" src="phonegap.js"></script>
-<script data-main="js/index.js" src="js/require.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery.js"></script>
 <script type="text/javascript" src="js/lib/slider-nav.js"></script>
+<script type="text/javascript" src="js/lib/jquery.touchswipe.min.js"></script>
+<script type="text/javascript" src="js/lib/slider-nav.js"></script>
+<script type="text/javascript">
+$(function() {      
+      //Enable swiping...
+      $("#content").swipe( {
+        swipeRight:function(event, direction, distance, duration, fingerCount) {
+           $("body").addClass( "menu-active" );
+        },
+        //Default is 75px, set to 0 for demo so any distance triggers swipe
+         threshold:10
+      });
+      $("body").swipe( {
+        //Generic swipe handler for all directions
+        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+           $("body").removeClass( "menu-active" );
+        },
+        //Default is 75px, set to 0 for demo so any distance triggers swipe
+         threshold:0
+      });
+      
+    });
+  
+</script>
+<script type="text/javascript" src="js/lib/slider-nav.js"></script>
+<!--<script type="text/javascript">
+$(function() {      
+      //Enable swiping...
+      $("body").swipe( {
+        //Generic swipe handler for all directions
+        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+           $("body").addClass( "menu-active" );
+        },
+        //Default is 75px, set to 0 for demo so any distance triggers swipe
+         threshold:0
+      });
+    });
+  
+</script>-->
+
+
 </body>
 </html>
